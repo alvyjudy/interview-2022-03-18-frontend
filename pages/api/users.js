@@ -16,6 +16,10 @@ const postHandler = (req, res) => {
   })
 }
 
-const getHandler = (req, res) => {}
+const getHandler = (req, res) => {
+  res.status(200).json([
+    {email: '1@gmail.com'}
+  ])
+}
 
 export default handler
