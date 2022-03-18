@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import Register from '../components/register'
+import Register from '../components/Register'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
