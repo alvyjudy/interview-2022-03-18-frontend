@@ -11,10 +11,15 @@ const handler = (req, res) => {
 
 const postHandler = (req, res) => {
   setTimeout(() => {
-    res.status(200).json({
-      id: 'idddd',
-      email: 'emaillll'
-    })
+    if (req.body.email === '1@fail.com') {
+      res.status(500).json({})
+    } else {
+      res.status(200).json({
+        id: 'idddd',
+        email: 'emaillll'
+      })
+    }
+   
   }, 1000)
   
 }

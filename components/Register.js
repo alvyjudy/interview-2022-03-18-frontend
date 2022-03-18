@@ -15,7 +15,7 @@ const Register = props => {
     setTimeout(() => {
       setDisplayErrorMessage(false)
     }, 500)
-  }, [email, setEmail])
+  }, [email, password])
 
   return (
     <div>
@@ -33,7 +33,7 @@ const Register = props => {
               console.log(users)
               const duplicated = users.some(user => user.email === email)
               if (duplicated) {
-                throw new Error("Email already registered")
+                throw new Error("Custom::Email already registered")
               } else {
                 return true
               }
@@ -52,7 +52,11 @@ const Register = props => {
             })
             .catch((e) => {
               setStatusMessage('')
-              setErrorMessage(e.message)
+              if (e.message.startsWith('Custom')) {
+                setErrorMessage(e.message.split('::')[1])
+              } else {
+                setErrorMessage('Unable to register your account')
+              }
               setDisplayErrorMessage(true)
               console.log('error', e)
             })
@@ -84,6 +88,19 @@ const Register = props => {
         {errorMessage && displayErrorMessage && <p>{errorMessage}</p>}
         {statusMessage && <p>{statusMessage}</p>}
       </form>
+      <div style={{
+        "position": "absolute",
+        "bottom": "100px"
+      }
+      }>
+        <p> 
+          Scenarios <br/>
+          1. 重复邮件: 120@gmail.com <br/>
+          2. 格式不对的邮件 <br/>
+          3. 空密码或邮件 <br/>
+          4. 注册失败 1@fail.com <br />
+        </p>
+      </div>
     </div>
   )
 }
