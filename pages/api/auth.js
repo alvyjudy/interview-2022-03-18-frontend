@@ -1,9 +1,11 @@
 const handler = (req, res) => {
-  res.status(200).json({
-    id: "id",
-    email: "",
-    token: ""
-  })
+  setTimeout(() => {
+    res.status(200).json({
+      id: "id",
+      email: "",
+      token: ""
+    })
+  }, 1000)
 }
 
 export default handler

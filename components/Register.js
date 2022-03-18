@@ -16,14 +16,16 @@ const Register = props => {
       setDisplayErrorMessage(false)
     }, 500)
   }, [email, setEmail])
+
   return (
     <div>
       <form
         onSubmit={e => {
           e.preventDefault()
           setDisplayErrorMessage(false)
-          setStatusMessage('Verifying your credential')
+         
           if (email && password) {
+            setStatusMessage('Verifying your credential')
             axios
             .get('/api/users')
             .then(response => response.data)
@@ -31,8 +33,6 @@ const Register = props => {
               console.log(users)
               const duplicated = users.some(user => user.email === email)
               if (duplicated) {
-                setDisplayErrorMessage(true)
-                setErrorMessage("Email already registered")
                 throw new Error("Email already registered")
               } else {
                 return true
@@ -48,14 +48,13 @@ const Register = props => {
             })
             .then(() => {
               setStatusMessage('')
-              console.log('success')
-              //href.location = '/home'
+              location.href = '/home'
             })
-            .catch(() => {
+            .catch((e) => {
               setStatusMessage('')
-              setErrorMessage("Something went wrong")
+              setErrorMessage(e.message)
               setDisplayErrorMessage(true)
-              console.log('error')
+              console.log('error', e)
             })
           } else {
             setErrorMessage('Email and password cannot be empty')

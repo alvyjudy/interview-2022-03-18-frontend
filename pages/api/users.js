@@ -10,16 +10,20 @@ const handler = (req, res) => {
 }
 
 const postHandler = (req, res) => {
-  res.status(200).json({
-    id: 'idddd',
-    email: 'emaillll'
-  })
+  setTimeout(() => {
+    res.status(200).json({
+      id: 'idddd',
+      email: 'emaillll'
+    })
+  }, 1000)
+  
 }
 
 const getHandler = (req, res) => {
-  res.status(200).json([
-    {email: '1@gmail.com'}
-  ])
+  const users = Array(1000).fill(0).map((_, index) => ({
+    email: `${index}@gmail.com`
+  }))
+  res.status(200).json(users)
 }
 
 export default handler
