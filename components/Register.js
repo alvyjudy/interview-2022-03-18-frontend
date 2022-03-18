@@ -12,9 +12,7 @@ const Register = props => {
 
 
   useEffect(() => {
-    setTimeout(() => {
-      setDisplayErrorMessage(false)
-    }, 500)
+    setDisplayErrorMessage(false)
   }, [email, password])
 
   return (
@@ -23,6 +21,18 @@ const Register = props => {
         onSubmit={e => {
           e.preventDefault()
           setDisplayErrorMessage(false)
+
+          if (!email || !password) {
+            setDisplayErrorMessage(true)
+            setErrorMessage("Email or password cannot be empty")
+            return 
+          }
+
+          if (password.length <= 8) {
+            setDisplayErrorMessage(true)
+            setErrorMessage("Password must be longer than 8 characters")
+            return
+          }
          
           if (email && password) {
             setStatusMessage('Verifying your credential')
@@ -98,7 +108,8 @@ const Register = props => {
           1. 重复邮件: 120@gmail.com <br/>
           2. 格式不对的邮件 <br/>
           3. 空密码或邮件 <br/>
-          4. 注册失败 1@fail.com <br />
+          4. 注册失败: 1@fail.com <br />
+          5. 小于8位的密码 
         </p>
       </div>
     </div>
